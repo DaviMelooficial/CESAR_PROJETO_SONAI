@@ -1,0 +1,10 @@
+# Dependencias essenciais minimas para o projeto
+# Use este arquivo se o requirements.txt completo der problemas
+
+pandas
+numpy
+matplotlib
+plotly
+jupyter
+notebook
+openpyxl
