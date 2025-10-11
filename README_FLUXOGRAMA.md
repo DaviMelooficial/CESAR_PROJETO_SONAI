@@ -187,9 +187,9 @@ df['Duracao_meses'] = (df['Data_Fim'] - df['Data_Inicio']).dt.days / 30.44
 - Taxa_Conclusao = 25%
 ```
 
-### 6. Fluxo de Execução Completo 🔄
+### 5. Fluxo de Execução Completo 🔄
 
-#### 6.1 Pipeline de Dados
+#### 5.1 Pipeline de Dados
 
 ```bash
 # 1. Extração de dados
@@ -205,7 +205,7 @@ cd ../dashboard/
 streamlit run app.py
 ```
 
-#### 6.2 Automação com Scripts
+#### 5.2 Automação com Scripts
 
 **Arquivo**: `run_pipeline.py`
 ```python
@@ -235,7 +235,7 @@ def main():
         print("Erro na extração de dados")
 ```
 
-### 7. Estrutura de Arquivos Final 📂
+### 6. Estrutura de Arquivos Final 📂
 
 ```
 project_eda2/
@@ -259,24 +259,24 @@ project_eda2/
 └── docs/                       # Documentação
 ```
 
-### 8. Considerações Técnicas 🛠️
+### 7. Considerações Técnicas 🛠️
 
-#### 8.1 Performance
+#### 7.1 Performance
 - Cache de dados com `@st.cache_data`
 - Lazy loading para datasets grandes
 - Otimização de queries para filtros
 
-#### 8.2 Segurança
+#### 7.2 Segurança
 - Validação de inputs
 - Sanitização de dados
 - Controle de acesso por usuário
 
-#### 8.3 Escalabilidade
+#### 7.3 Escalabilidade
 - Modularização do código
 - Configuração via variáveis de ambiente
 - Suporte a múltiplas fontes de dados
 
-### 9. Roadmap de Implementação 📅
+### 8. Roadmap de Implementação 📅
 
 #### Fase 1: MVP (2 semanas)
 - [ ] Dashboard básico com métricas principais
@@ -293,7 +293,7 @@ project_eda2/
 - [ ] Testes automatizados
 - [ ] Documentação completa
 
-### 10. Métricas de Sucesso 📊
+### 9. Métricas de Sucesso 📊
 
 #### KPIs do Sistema:
 - **Tempo de processamento**: < 30 segundos
