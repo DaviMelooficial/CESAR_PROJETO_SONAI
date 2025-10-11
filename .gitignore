@@ -2,21 +2,6 @@
 # Sistema de Análise e Visualização de Relatórios
 
 # =====================================
-# ARQUIVOS DE DADOS SENSÍVEIS
-# =====================================
-# Dados brutos que podem conter informações sensíveis
-data/raw/*.pdf
-data/raw/*.doc
-data/raw/*.docx
-data/raw/*.csv
-data/raw/*.xlsx
-data/raw/*.xls
-
-# Dados processados grandes
-data/processed/*.json
-data/processed/*.csv
-
-# =====================================
 # PYTHON
 # =====================================
 # Byte-compiled / optimized / DLL files

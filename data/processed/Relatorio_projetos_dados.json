@@ -1,0 +1,109 @@
+{
+  "dados": [
+    {
+      "Projeto": "Digitalização de Lojas",
+      "Departamento": "Operações",
+      "Responsavel": "Ana Silva",
+      "Investimento (€)": 120000,
+      "Data_Inicio": "2025-02-01",
+      "Data_Fim": "2025-09-15",
+      "Status": "Concluído",
+      "Progresso (%)": 100,
+      "Observacoes": "Implementação de POS inteligentes em 50 lojas."
+    },
+    {
+      "Projeto": "Sustentabilidade Logística",
+      "Departamento": "Logística",
+      "Responsavel": "Bruno Costa",
+      "Investimento (€)": 85000,
+      "Data_Inicio": "2025-03-10",
+      "Data_Fim": "2025-11-30",
+      "Status": "Em Andamento",
+      "Progresso (%)": 65,
+      "Observacoes": "Redução de 20% no consumo energético da frota."
+    },
+    {
+      "Projeto": "Análise de Clientes",
+      "Departamento": "Marketing",
+      "Responsavel": "João Mendes",
+      "Investimento (€)": 60000,
+      "Data_Inicio": "2025-05-01",
+      "Data_Fim": "2025-12-31",
+      "Status": "Planeado",
+      "Progresso (%)": 10,
+      "Observacoes": "Integração de dados omnicanal para insights de comportamento."
+    },
+    {
+      "Projeto": "Plataforma de Pagamentos",
+      "Departamento": "Financeiro",
+      "Responsavel": "Marta Lopes",
+      "Investimento (€)": 150000,
+      "Data_Inicio": "2025-12-01",
+      "Data_Fim": "2025-10-31",
+      "Status": "Em Andamento",
+      "Progresso (%)": 80,
+      "Observacoes": "Teste piloto em 10 lojas Continente em curso."
+    }
+  ],
+  "metadados": {
+    "encoding": "utf-8",
+    "num_linhas": 4,
+    "num_colunas": 9,
+    "tamanho_arquivo": 681,
+    "colunas_com_valores_nulos": {
+      "Projeto": 0,
+      "Departamento": 0,
+      "Responsavel": 0,
+      "Investimento (€)": 0,
+      "Data_Inicio": 0,
+      "Data_Fim": 0,
+      "Status": 0,
+      "Progresso (%)": 0,
+      "Observacoes": 0
+    },
+    "tipos_dados": {
+      "Projeto": "object",
+      "Departamento": "object",
+      "Responsavel": "object",
+      "Investimento (€)": "int64",
+      "Data_Inicio": "object",
+      "Data_Fim": "object",
+      "Status": "object",
+      "Progresso (%)": "int64",
+      "Observacoes": "object"
+    }
+  },
+  "colunas": [
+    "Projeto",
+    "Departamento",
+    "Responsavel",
+    "Investimento (€)",
+    "Data_Inicio",
+    "Data_Fim",
+    "Status",
+    "Progresso (%)",
+    "Observacoes"
+  ],
+  "estatisticas": {
+    "Investimento (€)": {
+      "count": 4.0,
+      "mean": 103750.0,
+      "std": 39449.33459514875,
+      "min": 60000.0,
+      "25%": 78750.0,
+      "50%": 102500.0,
+      "75%": 127500.0,
+      "max": 150000.0
+    },
+    "Progresso (%)": {
+      "count": 4.0,
+      "mean": 63.75,
+      "std": 38.595120589698034,
+      "min": 10.0,
+      "25%": 51.25,
+      "50%": 72.5,
+      "75%": 85.0,
+      "max": 100.0
+    }
+  }
+}
