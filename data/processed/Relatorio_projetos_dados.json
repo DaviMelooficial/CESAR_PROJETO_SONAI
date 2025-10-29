@@ -5,8 +5,8 @@
       "Departamento": "Operações",
       "Responsavel": "Ana Silva",
       "Investimento (€)": 120000,
-      "Data_Inicio": "2025-02-01",
-      "Data_Fim": "2025-09-15",
+      "Data_Inicio": "2024-02-01",
+      "Data_Fim": "2024-09-15",
       "Status": "Concluído",
       "Progresso (%)": 100,
       "Observacoes": "Implementação de POS inteligentes em 50 lojas."
@@ -16,8 +16,8 @@
       "Departamento": "Logística",
       "Responsavel": "Bruno Costa",
       "Investimento (€)": 85000,
-      "Data_Inicio": "2025-03-10",
-      "Data_Fim": "2025-11-30",
+      "Data_Inicio": "2024-03-10",
+      "Data_Fim": "2024-11-30",
       "Status": "Em Andamento",
       "Progresso (%)": 65,
       "Observacoes": "Redução de 20% no consumo energético da frota."
@@ -27,8 +27,8 @@
       "Departamento": "Marketing",
       "Responsavel": "João Mendes",
       "Investimento (€)": 60000,
-      "Data_Inicio": "2025-05-01",
-      "Data_Fim": "2025-12-31",
+      "Data_Inicio": "2024-05-01",
+      "Data_Fim": "2024-12-31",
       "Status": "Planeado",
       "Progresso (%)": 10,
       "Observacoes": "Integração de dados omnicanal para insights de comportamento."
@@ -38,8 +38,8 @@
       "Departamento": "Financeiro",
       "Responsavel": "Marta Lopes",
       "Investimento (€)": 150000,
-      "Data_Inicio": "2025-12-01",
-      "Data_Fim": "2025-10-31",
+      "Data_Inicio": "2023-12-01",
+      "Data_Fim": "2024-10-31",
       "Status": "Em Andamento",
       "Progresso (%)": 80,
       "Observacoes": "Teste piloto em 10 lojas Continente em curso."
