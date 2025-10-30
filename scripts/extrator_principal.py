@@ -1,10 +1,3 @@
-"""
-Script Principal - Extrator Universal de Documentos
-Unifica todos os extratores (PDF, DOC, CSV/XLSX) em uma única interface
-Autor: Sistema de Análise e Visualização
-Data: Setembro 2025
-"""
-
 import os
 import sys
 from pathlib import Path
@@ -21,21 +14,21 @@ try:
     from extrator_pdf import ExtratorPDF
     PDF_DISPONIVEL = True
 except ImportError as e:
-    print(f"⚠️ Extrator PDF não disponível: {e}")
+    print(f"Extrator PDF não disponível: {e}")
     PDF_DISPONIVEL = False
 
 try:
     from extrator_doc import ExtratorDOC
     DOC_DISPONIVEL = True
 except ImportError as e:
-    print(f"⚠️ Extrator DOC não disponível: {e}")
+    print(f"Extrator DOC não disponível: {e}")
     DOC_DISPONIVEL = False
 
 try:
     from extrator_csv_xlsx import ExtratorCSVXLSX
     CSV_XLSX_DISPONIVEL = True
 except ImportError as e:
-    print(f"⚠️ Extrator CSV/XLSX não disponível: {e}")
+    print(f"Extrator CSV/XLSX não disponível: {e}")
     CSV_XLSX_DISPONIVEL = False
 
 # Configuração do logging
@@ -173,25 +166,25 @@ class ExtratorUniversal:
 === RELATÓRIO DE PROCESSAMENTO ===
 Data: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
-✅ Arquivos processados com sucesso: {len(resultado['processados'])}
-❌ Arquivos com erro: {len(resultado['erros'])}
-⚠️ Arquivos não suportados: {len(resultado['nao_suportados'])}
+Arquivos processados com sucesso: {len(resultado['processados'])}
+Arquivos com erro: {len(resultado['erros'])}
+Arquivos não suportados: {len(resultado['nao_suportados'])}
 
 PROCESSADOS:
 """
         
         for arquivo in resultado['processados']:
-            relatorio += f"  ✅ {os.path.basename(arquivo)}\n"
+            relatorio += f"  {os.path.basename(arquivo)}\n"
         
         if resultado['erros']:
             relatorio += "\nERROS:\n"
             for arquivo in resultado['erros']:
-                relatorio += f"  ❌ {os.path.basename(arquivo)}\n"
+                relatorio += f"  {os.path.basename(arquivo)}\n"
         
         if resultado['nao_suportados']:
             relatorio += "\nNÃO SUPORTADOS:\n"
             for arquivo in resultado['nao_suportados']:
-                relatorio += f"  ⚠️ {os.path.basename(arquivo)}\n"
+                relatorio += f"  {os.path.basename(arquivo)}\n"
         
         relatorio += f"\nExtratores disponíveis: {', '.join(self.extratores.keys())}\n"
         
@@ -207,9 +200,9 @@ PROCESSADOS:
         print()
         
         print("Extratores disponíveis:")
-        print(f"  📄 PDF: {'✅' if PDF_DISPONIVEL else '❌'}")
-        print(f"  📝 DOC/DOCX: {'✅' if DOC_DISPONIVEL else '❌'}")
-        print(f"  📊 CSV/XLSX: {'✅' if CSV_XLSX_DISPONIVEL else '❌'}")
+        print(f"   PDF: {'Ok' if PDF_DISPONIVEL else 'Não disponível'}")
+        print(f"   DOC/DOCX: {'Ok' if DOC_DISPONIVEL else 'Não disponível'}")
+        print(f"   CSV/XLSX: {'Ok' if CSV_XLSX_DISPONIVEL else 'Não disponível'}")
         print()
         
         arquivos = self.listar_arquivos_disponiveis()
@@ -258,13 +251,13 @@ def main():
         elif extensao in ['.csv', '.xlsx', '.xls'] and 'csv_xlsx' in extrator.extratores:
             sucesso = extrator.extratores['csv_xlsx'].processar_arquivo(str(arquivo_path), args.formato)
         else:
-            print(f"❌ Formato {extensao} não suportado ou extrator não disponível")
+            print(f"Formato {extensao} não suportado ou extrator não disponível")
             return
         
         if sucesso:
-            print("✅ Processamento concluído com sucesso!")
+            print("Processamento concluído com sucesso!")
         else:
-            print("❌ Erro no processamento.")
+            print("Erro no processamento.")
             
     elif args.todos:
         # Processar todos os arquivos
@@ -278,7 +271,7 @@ def main():
         if args.relatorio:
             with open(args.relatorio, 'w', encoding='utf-8') as f:
                 f.write(relatorio)
-            print(f"📄 Relatório salvo em: {args.relatorio}")
+            print(f" Relatório salvo em: {args.relatorio}")
     
     else:
         # Interface interativa
@@ -311,15 +304,15 @@ def main():
                     elif extensao in ['.csv', '.xlsx', '.xls'] and 'csv_xlsx' in extrator.extratores:
                         sucesso = extrator.extratores['csv_xlsx'].processar_arquivo(caminho, formato)
                     else:
-                        print(f"❌ Formato {extensao} não suportado")
+                        print(f"Formato {extensao} não suportado")
                         continue
                     
                     if sucesso:
-                        print("✅ Processamento concluído com sucesso!")
+                        print("Processamento concluído com sucesso!")
                     else:
-                        print("❌ Erro no processamento.")
+                        print("Erro no processamento.")
                 else:
-                    print("❌ Arquivo não encontrado!")
+                    print("Arquivo não encontrado!")
                     
             elif opcao == "3":
                 formato = input("Formato de saída (txt/json/csv) [json]: ").strip() or "json"
@@ -329,11 +322,11 @@ def main():
                 print(relatorio)
                 
             elif opcao == "4":
-                print("👋 Até mais!")
+                print("Até mais!")
                 break
                 
             else:
-                print("❌ Opção inválida!")
+                print("Opção inválida!")
 
 if __name__ == "__main__":
     main()

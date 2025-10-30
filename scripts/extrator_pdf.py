@@ -1,9 +1,3 @@
-"""
-Script para extração de texto e dados de arquivos PDF
-Autor: Sistema de Análise e Visualização
-Data: Setembro 2025
-"""
-
 import os
 import json
 import csv

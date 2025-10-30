@@ -1,10 +1,3 @@
-# Configuração do Projeto - Sistema de Análise e Visualização
-
-"""
-Arquivo de configuração centralizada para o projeto.
-Contém constantes, caminhos e configurações utilizadas pelos scripts.
-"""
-
 from pathlib import Path
 import os
 
@@ -273,9 +266,9 @@ def validate_config():
 if __name__ == "__main__":
     validation_errors = validate_config()
     if validation_errors:
-        print("❌ Erros de configuração encontrados:")
+        print("Erros de configuração encontrados:")
         for error in validation_errors:
             print(f"  - {error}")
     else:
-        print("✅ Configuração validada com sucesso!")
-        print(f"📁 Diretórios criados em: {PROJECT_ROOT}")
+        print("Configuração validada com sucesso!")
+        print(f"Diretórios criados em: {PROJECT_ROOT}")

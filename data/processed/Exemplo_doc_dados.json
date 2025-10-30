@@ -1,0 +1,75 @@
+{
+  "texto": "Relatório de Reunião — Projeto Plataforma de Pagamentos\nData: 15/09/2024\nParticipantes: Marta Lopes (Financeiro), Rui Santos (TI), Carla Neves (UX)\nPontos Principais:\n- Testes piloto em 10 lojas Continente concluídos com sucesso.\n- Necessidade de integração com o sistema de fidelização.\n- Ajustes de UX para fluxo de checkout no app.\n- Próximos passos: revisão de compliance e rollout nacional.\nDecisões:\n✔ Continuar investimento previsto.\n✔ Nova versão beta até 30/10/2024.\n✔ Preparar relatório de performance para o Conselho Executivo.\n",
+  "paragrafos": [
+    {
+      "numero": 1,
+      "texto": "Relatório de Reunião — Projeto Plataforma de Pagamentos",
+      "estilo": "Normal"
+    },
+    {
+      "numero": 2,
+      "texto": "Data: 15/09/2024",
+      "estilo": "Normal"
+    },
+    {
+      "numero": 3,
+      "texto": "Participantes: Marta Lopes (Financeiro), Rui Santos (TI), Carla Neves (UX)",
+      "estilo": "Normal"
+    },
+    {
+      "numero": 5,
+      "texto": "Pontos Principais:",
+      "estilo": "Normal"
+    },
+    {
+      "numero": 6,
+      "texto": "- Testes piloto em 10 lojas Continente concluídos com sucesso.",
+      "estilo": "Normal"
+    },
+    {
+      "numero": 7,
+      "texto": "- Necessidade de integração com o sistema de fidelização.",
+      "estilo": "Normal"
+    },
+    {
+      "numero": 8,
+      "texto": "- Ajustes de UX para fluxo de checkout no app.",
+      "estilo": "Normal"
+    },
+    {
+      "numero": 9,
+      "texto": "- Próximos passos: revisão de compliance e rollout nacional.",
+      "estilo": "Normal"
+    },
+    {
+      "numero": 11,
+      "texto": "Decisões:",
+      "estilo": "Normal"
+    },
+    {
+      "numero": 12,
+      "texto": "✔ Continuar investimento previsto.",
+      "estilo": "Normal"
+    },
+    {
+      "numero": 13,
+      "texto": "✔ Nova versão beta até 30/10/2024.",
+      "estilo": "Normal"
+    },
+    {
+      "numero": 14,
+      "texto": "✔ Preparar relatório de performance para o Conselho Executivo.",
+      "estilo": "Normal"
+    }
+  ],
+  "tabelas": [],
+  "metadados": {
+    "autor": "Davi Melo",
+    "titulo": "",
+    "assunto": "",
+    "criado": "2025-10-07 16:56:00+00:00",
+    "modificado": "2025-10-07 17:12:00+00:00",
+    "num_paragrafos": 14,
+    "num_tabelas": 0
+  }
+}

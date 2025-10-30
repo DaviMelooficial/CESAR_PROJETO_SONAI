@@ -1,9 +1,3 @@
-"""
-Script para extração e processamento de dados de arquivos CSV/XLSX
-Autor: Sistema de Análise e Visualização
-Data: Setembro 2025
-"""
-
 import os
 import json
 import csv

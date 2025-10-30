@@ -2,11 +2,6 @@
 # Sistema de Análise e Visualização de Relatórios
 
 # =====================================
-# ARQUIVOS DE DADOS SENSÍVEIS
-# =====================================
-
-
-# =====================================
 # PYTHON
 # =====================================
 # Byte-compiled / optimized / DLL files
@@ -238,6 +233,10 @@ temp/
 # =====================================
 # ESPECÍFICOS DO PROJETO
 # =====================================
+# Relatórios grandes ou temporários
+reports/*.pdf
+reports/*.html
+
 # Configurações locais
 config/local.py
 config/secrets.py
