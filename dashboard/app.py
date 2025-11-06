@@ -74,15 +74,126 @@ with col1:
     st.subheader("Distribuição de Investimentos por Projeto")
     # Gráfico de barras dos investimentos
     
+   # GrÃ¡fico de barras dos investimentos
+    fig = go.Figure(
+        go.Bar(
+            x=df['Projeto'], 
+           y=df['Investimento (€)'],
+           text=df['Investimento (€)'].apply(lambda x: f'â‚¬{x:,.0f}'),
+           textposition='outside',
+           marker_color='#143982',
+           marker_line_color='white',
+           marker_line_width=1.5,
+           opacity=0.8,
+           name='Investimento'
+    )
+)
+    
+    # config layout 
+    fig.update_layout(
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        xaxis_title='',
+        yaxis_title='',
+        xaxis=dict(
+            tickangle=0,
+            gridcolor='#f0f0f0',
+            tickfont=dict(
+                size=14,
+                color='#143982',
+                family='Arial, sans-serif'
+            )
+        ),
+        yaxis=dict(
+            gridcolor='#f0f0f0',
+            showgrid=True,
+            tickfont=dict(
+            size=14,
+            color='#143982',
+            family='Arial, sans-serif'
+        ),
+        title=''
+    ),
+        height=500,
+        showlegend=False,
+        font=dict(size=12),
+    
+      annotations=[
+        dict(
+            x=xi,
+            y=-0.15,  # PosiÃ§Ã£o abaixo das barras
+            xref='x',
+            yref='paper',
+            text=f"<b>{xi}</b>",  # Texto em negrito
+            showarrow=False,
+            font=dict(
+                size=13,
+                color='#143982',
+                family='Arial, sans-serif'
+            ),
+            textangle=0
+        ) for xi in df['Projeto']
+    ]
+)
+    
+    st.plotly_chart(fig, use_container_width=True)
+
     st.subheader("Status dos Projetos")
-    # Gráfico de pizza dos status
+    # Contagem do Status
+    status_counts = df['Status'].value_counts()
+
+    # GrÃ¡fico de pizza dos status
+    fig = go.Figure(
+        go.Pie(
+            labels=status_counts.index,
+            values=status_counts.values,
+            textinfo='label+value',
+            name="Status"
+        )
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
 
 with col2:
     st.subheader("Investimentos por Departamento")
-    # Gráfico de pizza por departamento
+    # Soma dos investimentos por departamento
+    dept_invest = df.groupby('Departamento')['Investimento (€)'].sum()
     
+    # GrÃ¡fico de pizza por departamento
+    fig = go.Figure(
+        go.Pie(
+            labels=dept_invest.index,
+            values=dept_invest.values,
+            textinfo='label+percent',
+            name="Por Departamento"
+        )
+    )
+    
+    st.plotly_chart(fig, use_container_width=True)
+
     st.subheader("Categorias de Investimento")
-    # Gráfico de barras das categorias
+    # Contagem das categorias
+    df['Categoria_Investimento'] = df['Investimento (€)'].apply(
+    lambda x: 'Alto' if x > 120000 else 'MÃ©dio' if x > 80000 else 'Baixo'
+    )
+
+    # Conta quantas vezes a categoria aparece
+    cat_counts = df['Categoria_Investimento'].value_counts()
+   
+
+    # GrÃ¡fico de barras das categorias
+    fig = go.Figure(
+        go.Bar(
+            x=cat_counts.index,
+            y=cat_counts.values,
+            text=cat_counts.values,
+            textposition='outside',
+            marker_color='lightcoral',
+            name='FrequÃªncia'
+        )
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
 
 st.divider()
 
@@ -93,19 +204,54 @@ st.header("🔗 Análise Bivariada - Correlações e Relacionamentos")
 # Análise de correlações e scatter plots
 col1, col2 = st.columns(2)
 
+df["Duracao_meses"] = ((df["Data_Fim"] - df["Data_Inicio"]).dt.days / 30.44).round(1)
+df['ROI_Progresso'] = df['Progresso (%)'] / (df['Investimento (€)'] / 1000)
+
 with col1:
     st.subheader("Investimento vs Progresso")
     # Scatter plot: Investimento x Progresso
-    
+    fig = px.scatter(df,
+                     x = df['Investimento (€)'],
+                     y = df['Progresso (%)'],
+                     text=df['Projeto'],
+                     color=df['Projeto']
+                     )
+    st.plotly_chart(fig, use_container_width=True)
+
     st.subheader("Duração vs Progresso")  
     # Scatter plot: Duração x Progresso
+    fig = px.scatter(df,
+                     x = df['Duracao_meses'],
+                     y = df['Progresso (%)'],
+                     text=df['Projeto'],
+                     color=df['Projeto']
+                     )
+    st.plotly_chart(fig, use_container_width=True)
 
 with col2:
     st.subheader("Timeline dos Projetos")
     # Gráfico de barras horizontais (duração)
+    fig = px.bar(df,
+                x = df['Duracao_meses'],
+                y = df['Projeto'],
+                orientation='h',
+                text=df['Duracao_meses'].apply(lambda x: f"{x:.1f}m"),
+                text_auto=True,
+                range_color='lightgreen'
+            )
     
+    st.plotly_chart(fig, use_container_width=True)
+
     st.subheader("Investimento por Status")
     # Box plot: Investimento agrupado por Status
+    fig = px.box(df,
+                 x = df['Investimento (€)'],
+                 y = df['Status'],
+                 color="Projeto",
+                 points="all"
+                 )
+    
+    st.plotly_chart(fig, use_container_width=True)
 
 # Seção de correlações
 st.subheader("📈 Matriz de Correlações")
