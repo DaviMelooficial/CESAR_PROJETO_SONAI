@@ -1,0 +1,340 @@
+{
+  "dados": [
+    {
+      "Projeto": "Digitalização de Lojas",
+      "Departamento": "Operações",
+      "Responsavel": "Ana Silva",
+      "Investimento (€)": 120000,
+      "Data_Inicio": "2024-02-01",
+      "Data_Fim": "2024-09-15",
+      "Status": "Concluído",
+      "Progresso (%)": 100,
+      "Observacoes": "Implementação de POS inteligentes em 50 lojas."
+    },
+    {
+      "Projeto": "Sustentabilidade Logística",
+      "Departamento": "Logística",
+      "Responsavel": "Bruno Costa",
+      "Investimento (€)": 85000,
+      "Data_Inicio": "2024-03-10",
+      "Data_Fim": "2024-11-30",
+      "Status": "Em Andamento",
+      "Progresso (%)": 65,
+      "Observacoes": "Redução de 20% no consumo energético da frota."
+    },
+    {
+      "Projeto": "Análise de Clientes",
+      "Departamento": "Marketing",
+      "Responsavel": "João Mendes",
+      "Investimento (€)": 60000,
+      "Data_Inicio": "2024-05-01",
+      "Data_Fim": "2024-12-31",
+      "Status": "Planeado",
+      "Progresso (%)": 10,
+      "Observacoes": "Integração de dados omnicanal para insights de comportamento."
+    },
+    {
+      "Projeto": "Plataforma de Pagamentos",
+      "Departamento": "Financeiro",
+      "Responsavel": "Marta Lopes",
+      "Investimento (€)": 150000,
+      "Data_Inicio": "2023-12-01",
+      "Data_Fim": "2024-10-31",
+      "Status": "Em Andamento",
+      "Progresso (%)": 80,
+      "Observacoes": "Teste piloto em 10 lojas Continente em curso."
+    },
+    {
+      "Projeto": "Sistema CRM Integrado",
+      "Departamento": "TI",
+      "Responsavel": "Carlos Ferreira",
+      "Investimento (€)": 95000,
+      "Data_Inicio": "2024-01-15",
+      "Data_Fim": "2024-08-30",
+      "Status": "Concluído",
+      "Progresso (%)": 100,
+      "Observacoes": "CRM unificado para todas as marcas do grupo."
+    },
+    {
+      "Projeto": "Automação de Armazéns",
+      "Departamento": "Logística",
+      "Responsavel": "Rita Santos",
+      "Investimento (€)": 180000,
+      "Data_Inicio": "2024-04-01",
+      "Data_Fim": "2025-03-31",
+      "Status": "Em Andamento",
+      "Progresso (%)": 45,
+      "Observacoes": "Robótica e AI para gestão de inventário."
+    },
+    {
+      "Projeto": "App Mobile Clientes",
+      "Departamento": "TI",
+      "Responsavel": "Pedro Almeida",
+      "Investimento (€)": 75000,
+      "Data_Inicio": "2024-06-01",
+      "Data_Fim": "2024-12-15",
+      "Status": "Em Andamento",
+      "Progresso (%)": 70,
+      "Observacoes": "Lançamento previsto para Q4 2024."
+    },
+    {
+      "Projeto": "Treinamento Equipes",
+      "Departamento": "RH",
+      "Responsavel": "Sofia Rocha",
+      "Investimento (€)": 40000,
+      "Data_Inicio": "2024-02-15",
+      "Data_Fim": "2024-07-30",
+      "Status": "Concluído",
+      "Progresso (%)": 100,
+      "Observacoes": "Capacitação em transformação digital."
+    },
+    {
+      "Projeto": "E-commerce B2B",
+      "Departamento": "Vendas",
+      "Responsavel": "Miguel Torres",
+      "Investimento (€)": 110000,
+      "Data_Inicio": "2024-03-20",
+      "Data_Fim": "2024-11-20",
+      "Status": "Em Andamento",
+      "Progresso (%)": 55,
+      "Observacoes": "Plataforma para clientes corporativos."
+    },
+    {
+      "Projeto": "Dashboard Executivo",
+      "Departamento": "TI",
+      "Responsavel": "Ana Silva",
+      "Investimento (€)": 50000,
+      "Data_Inicio": "2024-05-10",
+      "Data_Fim": "2024-09-30",
+      "Status": "Concluído",
+      "Progresso (%)": 100,
+      "Observacoes": "BI integrado com KPIs em tempo real."
+    },
+    {
+      "Projeto": "Programa Fidelidade",
+      "Departamento": "Marketing",
+      "Responsavel": "Laura Dias",
+      "Investimento (€)": 90000,
+      "Data_Inicio": "2024-04-05",
+      "Data_Fim": "2024-10-25",
+      "Status": "Em Andamento",
+      "Progresso (%)": 75,
+      "Observacoes": "Gamificação e recompensas personalizadas."
+    },
+    {
+      "Projeto": "Otimização Energia",
+      "Departamento": "Operações",
+      "Responsavel": "Bruno Costa",
+      "Investimento (€)": 130000,
+      "Data_Inicio": "2024-01-10",
+      "Data_Fim": "2025-01-31",
+      "Status": "Em Andamento",
+      "Progresso (%)": 60,
+      "Observacoes": "Painéis solares e sistemas inteligentes."
+    },
+    {
+      "Projeto": "Blockchain Supply Chain",
+      "Departamento": "Logística",
+      "Responsavel": "Carlos Ferreira",
+      "Investimento (€)": 200000,
+      "Data_Inicio": "2024-07-01",
+      "Data_Fim": "2025-06-30",
+      "Status": "Planeado",
+      "Progresso (%)": 15,
+      "Observacoes": "Rastreabilidade completa da cadeia."
+    },
+    {
+      "Projeto": "Chatbot Atendimento",
+      "Departamento": "TI",
+      "Responsavel": "Rita Santos",
+      "Investimento (€)": 65000,
+      "Data_Inicio": "2024-03-15",
+      "Data_Fim": "2024-08-31",
+      "Status": "Concluído",
+      "Progresso (%)": 100,
+      "Observacoes": "AI para suporte ao cliente 24/7."
+    },
+    {
+      "Projeto": "Expansão Market Place",
+      "Departamento": "Vendas",
+      "Responsavel": "João Mendes",
+      "Investimento (€)": 140000,
+      "Data_Inicio": "2024-05-20",
+      "Data_Fim": "2025-02-28",
+      "Status": "Em Andamento",
+      "Progresso (%)": 40,
+      "Observacoes": "Integração de sellers externos."
+    },
+    {
+      "Projeto": "Análise Preditiva Vendas",
+      "Departamento": "Marketing",
+      "Responsavel": "Marta Lopes",
+      "Investimento (€)": 85000,
+      "Data_Inicio": "2024-06-10",
+      "Data_Fim": "2024-12-20",
+      "Status": "Em Andamento",
+      "Progresso (%)": 50,
+      "Observacoes": "Machine Learning para previsão de demanda."
+    },
+    {
+      "Projeto": "Modernização POS",
+      "Departamento": "Operações",
+      "Responsavel": "Pedro Almeida",
+      "Investimento (€)": 160000,
+      "Data_Inicio": "2024-02-20",
+      "Data_Fim": "2024-10-15",
+      "Status": "Em Andamento",
+      "Progresso (%)": 85,
+      "Observacoes": "Upgrade de sistemas de pagamento."
+    },
+    {
+      "Projeto": "Programa ESG",
+      "Departamento": "RH",
+      "Responsavel": "Sofia Rocha",
+      "Investimento (€)": 70000,
+      "Data_Inicio": "2024-04-01",
+      "Data_Fim": "2024-12-31",
+      "Status": "Em Andamento",
+      "Progresso (%)": 35,
+      "Observacoes": "Sustentabilidade e governança corporativa."
+    },
+    {
+      "Projeto": "Cloud Migration",
+      "Departamento": "TI",
+      "Responsavel": "Miguel Torres",
+      "Investimento (€)": 220000,
+      "Data_Inicio": "2024-01-05",
+      "Data_Fim": "2025-03-31",
+      "Status": "Em Andamento",
+      "Progresso (%)": 55,
+      "Observacoes": "Migração de infraestrutura para nuvem."
+    },
+    {
+      "Projeto": "Portal Fornecedores",
+      "Departamento": "Vendas",
+      "Responsavel": "Laura Dias",
+      "Investimento (€)": 95000,
+      "Data_Inicio": "2024-03-25",
+      "Data_Fim": "2024-09-30",
+      "Status": "Concluído",
+      "Progresso (%)": 100,
+      "Observacoes": "Gestão digital de contratos e pedidos."
+    },
+    {
+      "Projeto": "Sistema Gestão Frotas",
+      "Departamento": "Logística",
+      "Responsavel": "Ana Silva",
+      "Investimento (€)": 115000,
+      "Data_Inicio": "2024-05-15",
+      "Data_Fim": "2025-01-15",
+      "Status": "Em Andamento",
+      "Progresso (%)": 30,
+      "Observacoes": "Telemetria e manutenção preditiva."
+    },
+    {
+      "Projeto": "Marketplace Interno",
+      "Departamento": "RH",
+      "Responsavel": "Bruno Costa",
+      "Investimento (€)": 55000,
+      "Data_Inicio": "2024-06-20",
+      "Data_Fim": "2024-11-30",
+      "Status": "Em Andamento",
+      "Progresso (%)": 60,
+      "Observacoes": "Plataforma de troca de benefícios."
+    },
+    {
+      "Projeto": "Projeto IoT Lojas",
+      "Departamento": "Operações",
+      "Responsavel": "Carlos Ferreira",
+      "Investimento (€)": 175000,
+      "Data_Inicio": "2024-04-10",
+      "Data_Fim": "2025-02-28",
+      "Status": "Em Andamento",
+      "Progresso (%)": 25,
+      "Observacoes": "Sensores inteligentes para gestão de espaço."
+    },
+    {
+      "Projeto": "Sistema Compliance",
+      "Departamento": "Financeiro",
+      "Responsavel": "Rita Santos",
+      "Investimento (€)": 80000,
+      "Data_Inicio": "2024-02-05",
+      "Data_Fim": "2024-08-15",
+      "Status": "Concluído",
+      "Progresso (%)": 100,
+      "Observacoes": "Conformidade GDPR e regulamentações."
+    },
+    {
+      "Projeto": "Integração ERP",
+      "Departamento": "TI",
+      "Responsavel": "Pedro Almeida",
+      "Investimento (€)": 190000,
+      "Data_Inicio": "2024-07-15",
+      "Data_Fim": "2025-04-30",
+      "Status": "Planeado",
+      "Progresso (%)": 5,
+      "Observacoes": "Unificação de sistemas empresariais."
+    }
+  ],
+  "metadados": {
+    "encoding": "utf-8",
+    "num_linhas": 25,
+    "num_colunas": 9,
+    "tamanho_arquivo": 3291,
+    "colunas_com_valores_nulos": {
+      "Projeto": 0,
+      "Departamento": 0,
+      "Responsavel": 0,
+      "Investimento (€)": 0,
+      "Data_Inicio": 0,
+      "Data_Fim": 0,
+      "Status": 0,
+      "Progresso (%)": 0,
+      "Observacoes": 0
+    },
+    "tipos_dados": {
+      "Projeto": "object",
+      "Departamento": "object",
+      "Responsavel": "object",
+      "Investimento (€)": "int64",
+      "Data_Inicio": "object",
+      "Data_Fim": "object",
+      "Status": "object",
+      "Progresso (%)": "int64",
+      "Observacoes": "object"
+    }
+  },
+  "colunas": [
+    "Projeto",
+    "Departamento",
+    "Responsavel",
+    "Investimento (€)",
+    "Data_Inicio",
+    "Data_Fim",
+    "Status",
+    "Progresso (%)",
+    "Observacoes"
+  ],
+  "estatisticas": {
+    "Investimento (€)": {
+      "count": 25.0,
+      "mean": 113400.0,
+      "std": 51168.023869079276,
+      "min": 40000.0,
+      "25%": 75000.0,
+      "50%": 95000.0,
+      "75%": 150000.0,
+      "max": 220000.0
+    },
+    "Progresso (%)": {
+      "count": 25.0,
+      "mean": 62.4,
+      "std": 31.29563334822714,
+      "min": 5.0,
+      "25%": 40.0,
+      "50%": 60.0,
+      "75%": 100.0,
+      "max": 100.0
+    }
+  }
+}

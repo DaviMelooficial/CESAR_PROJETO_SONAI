@@ -26,40 +26,239 @@ def load_data(file_path):
     df = pd.read_parquet(file_path)
     return df
 
+def create_grant(df):
+    fig = px.timeline(df, x_start="Data_Inicio", x_end="Data_Fim", y="Projeto",color="Status",hover_data=['Investimento (€)', 'Progresso (%)', 'Responsavel'],title="Timeline dos Projetos - Análise de Cronograma")
+    fig.update_yaxes(categoryorder="total ascending")
+    fig.update_layout(height=400, xaxis_title="Período", yaxis_title="Projetos")
+    
+    st.plotly_chart(fig)
+
+def create_deadline_analysis(df):
+    df['Dias_Restantes'] = (df['Data_Fim'] - pd.Timestamp.now()).dt.days
+    
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Scatter(x=df['Dias_Restantes'], y=df['Progresso (%)'],text=df['Projeto'],mode='markers+text',textposition='top center',marker=dict(size=15, color='orange'),name='Deadline Analysis')
+    )
+
+    fig.update_layout(height=500,title_text="Análise de Deadline",xaxis_title="Dias até o Deadline",yaxis_title="Progresso (%)",template="plotly_white")
+
+    st.plotly_chart(fig, use_container_width=True)
+
+def create_ROI(df):
+    df['ROI_Progresso'] = df['Progresso (%)'] / (df['Investimento (€)'] / 1000)  # Progresso por mil euros
+    
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Bar(x=df['Projeto'], y=df['ROI_Progresso'],text=df['ROI_Progresso'].round(2),textposition='outside',marker_color='purple',name='ROI Progresso')
+    )
+
+    fig.update_layout(title="ROI de Progresso por Projeto",xaxis_title="Projeto",yaxis_title="ROI Progresso",height=500,template="plotly_white")
+
+    st.plotly_chart(fig)
 
 #=========== HEADER AND TITLE SECTION ===========
 
 # Título principal e descrição
 st.title("📊 Dashboard de Análise - Projetos Corporativos MC Sonae 2025")
+
+# Badge com informação de filtros (será preenchido após aplicar filtros)
+filtros_placeholder = st.empty()
+
 st.divider()
 
 #=========== DATA LOADING AND PREPARATION ===========
 
-# Carregamento de dados
-df = load_data("../data/datamart/Relatorio_projetos_dados.parquet")
+# Carregamento de dados expandidos
+df_original = load_data("../data/datamart/Relatorio_projetos_expandido_dados.parquet")
+
+#=========== SIDEBAR - FILTROS ===========
+
+st.sidebar.header("🔍 Filtros")
+st.sidebar.markdown("Utilize os filtros abaixo para personalizar a visualização dos dados.")
+
+# Filtro de Departamento
+departamento_selecionado = st.sidebar.multiselect(
+    "Departamento",
+    options=sorted(df_original['Departamento'].unique().tolist()),
+    default=[]
+)
+
+# Filtro de Status
+status_selecionado = st.sidebar.multiselect(
+    "Status do Projeto",
+    options=sorted(df_original['Status'].unique().tolist()),
+    default=[]
+)
+
+# Filtro de Responsável
+responsavel_selecionado = st.sidebar.multiselect(
+    "Responsável",
+    options=sorted(df_original['Responsavel'].unique().tolist()),
+    default=[]
+)
+
+# Filtro de Investimento (Range Slider)
+investimento_min = float(df_original['Investimento (€)'].min())
+investimento_max = float(df_original['Investimento (€)'].max())
+investimento_range = st.sidebar.slider(
+    "Investimento (€)",
+    min_value=investimento_min,
+    max_value=investimento_max,
+    value=(investimento_min, investimento_max),
+    step=5000.0,
+    format="€%.0f"
+)
+
+# Filtro de Progresso (Range Slider)
+progresso_range = st.sidebar.slider(
+    "Progresso (%)",
+    min_value=0,
+    max_value=100,
+    value=(0, 100),
+    step=5
+)
+
+# Filtro de Data
+st.sidebar.subheader("📅 Período")
+data_inicio_min = df_original['Data_Inicio'].min().date()
+data_inicio_max = df_original['Data_Inicio'].max().date()
+
+col1, col2 = st.sidebar.columns(2)
+with col1:
+    data_filtro_inicio = st.date_input(
+        "Início",
+        value=data_inicio_min,
+        min_value=data_inicio_min,
+        max_value=data_inicio_max
+    )
+with col2:
+    data_filtro_fim = st.date_input(
+        "Fim",
+        value=data_inicio_max,
+        min_value=data_inicio_min,
+        max_value=data_inicio_max
+    )
+
+# Aplicar filtros
+df = df_original.copy()
+
+if departamento_selecionado:
+    df = df[df['Departamento'].isin(departamento_selecionado)]
+
+if status_selecionado:
+    df = df[df['Status'].isin(status_selecionado)]
+
+if responsavel_selecionado:
+    df = df[df['Responsavel'].isin(responsavel_selecionado)]
+
+df = df[
+    (df['Investimento (€)'] >= investimento_range[0]) &
+    (df['Investimento (€)'] <= investimento_range[1])
+]
+
+df = df[
+    (df['Progresso (%)'] >= progresso_range[0]) &
+    (df['Progresso (%)'] <= progresso_range[1])
+]
+
+df = df[
+    (df['Data_Inicio'].dt.date >= data_filtro_inicio) &
+    (df['Data_Inicio'].dt.date <= data_filtro_fim)
+]
+
+# Botão para limpar filtros
+st.sidebar.markdown("---")
+if st.sidebar.button("🔄 Limpar Todos os Filtros"):
+    st.rerun()
+
+# Mostrar informações de filtros aplicados
+st.sidebar.markdown("---")
+st.sidebar.metric("Projetos Filtrados", len(df))
+st.sidebar.metric("Total de Projetos", len(df_original))
+
+# Mostrar porcentagem filtrada
+percentual_filtrado = (len(df) / len(df_original)) * 100
+st.sidebar.progress(percentual_filtrado / 100)
+st.sidebar.caption(f"{percentual_filtrado:.1f}% dos projetos visíveis")
+
+# Exibir resumo de filtros ativos
+filtros_ativos = []
+if len(departamento_selecionado) < len(df_original['Departamento'].unique()):
+    filtros_ativos.append(f"Departamentos: {len(departamento_selecionado)}")
+if len(status_selecionado) < len(df_original['Status'].unique()):
+    filtros_ativos.append(f"Status: {len(status_selecionado)}")
+if len(responsavel_selecionado) < len(df_original['Responsavel'].unique()):
+    filtros_ativos.append(f"Responsáveis: {len(responsavel_selecionado)}")
+if investimento_range != (investimento_min, investimento_max):
+    filtros_ativos.append(f"Investimento: €{investimento_range[0]:,.0f} - €{investimento_range[1]:,.0f}")
+if progresso_range != (0, 100):
+    filtros_ativos.append(f"Progresso: {progresso_range[0]}% - {progresso_range[1]}%")
+
+if filtros_ativos:
+    filtros_placeholder.info(f"🔍 **Filtros Ativos:** {' | '.join(filtros_ativos)}")
+else:
+    filtros_placeholder.success("✅ Exibindo todos os projetos (sem filtros aplicados)")
+
+if len(df) == 0:
+    st.warning("⚠️ Nenhum projeto encontrado com os filtros selecionados. Ajuste os filtros.")
+    st.stop()
+
+# Preparação dos dados - criar colunas calculadas
+df["Duracao_meses"] = ((df["Data_Fim"] - df["Data_Inicio"]).dt.days / 30.44).round(1)
+df['ROI_Eficiencia'] = df['Progresso (%)'] / (df['Investimento (€)'] / 1000)
 
 #=========== OVERVIEW AND KPIs SECTION ===========
 
 st.header("📈 Visão Geral e KPIs Principais")
+
+# Calcular métricas principais
+total_investimento = df['Investimento (€)'].sum()
+progresso_medio = df['Progresso (%)'].mean()
+projetos_concluidos = len(df[df['Progresso (%)'] == 100])
+total_projetos = len(df)
+
+# Calcular ROI médio (já criado na preparação dos dados)
+roi_medio = df['ROI_Eficiencia'].mean()
 
 # Métricas principais em colunas
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     # KPI: Investimento Total
-    pass
+    st.metric(
+        label="💰 Investimento Total",
+        value=f"€{total_investimento:,.0f}",
+        delta=f"Média: €{df['Investimento (€)'].mean():,.0f}"
+    )
 
 with col2:
     # KPI: Progresso Médio
-    pass
+    delta_progresso = progresso_medio - 75  # Comparar com meta de 75%
+    st.metric(
+        label="📊 Progresso Médio",
+        value=f"{progresso_medio:.1f}%",
+        delta=f"{delta_progresso:+.1f}% vs meta"
+    )
 
 with col3:
     # KPI: Projetos Concluídos
-    pass
+    taxa_conclusao = (projetos_concluidos / total_projetos) * 100
+    st.metric(
+        label="✅ Projetos Concluídos", 
+        value=f"{projetos_concluidos}/{total_projetos}",
+        delta=f"Taxa: {taxa_conclusao:.1f}%"
+    )
 
 with col4:
-    # KPI: ROI Médio
-    pass
+    # KPI: ROI Médio (Eficiência)
+    st.metric(
+        label="📈 Eficiência Média",
+        value=f"{roi_medio:.2f}",
+        delta="Progresso/€1K investido"
+    )
 
 st.divider()
 
@@ -73,76 +272,27 @@ col1, col2 = st.columns(2)
 with col1:
     st.subheader("Distribuição de Investimentos por Projeto")
     # Gráfico de barras dos investimentos
-    
-   # GrÃ¡fico de barras dos investimentos
     fig = go.Figure(
         go.Bar(
             x=df['Projeto'], 
-           y=df['Investimento (€)'],
-           text=df['Investimento (€)'].apply(lambda x: f'â‚¬{x:,.0f}'),
+            y=df['Investimento (€)'],
+            text=df['Investimento (€)'].apply(lambda x: f'€{x:,.0f}'),
            textposition='outside',
            marker_color='#143982',
            marker_line_color='white',
            marker_line_width=1.5,
            opacity=0.8,
            name='Investimento'
+        )
     )
-)
-    
-    # config layout 
-    fig.update_layout(
-        plot_bgcolor='white',
-        paper_bgcolor='white',
-        xaxis_title='',
-        yaxis_title='',
-        xaxis=dict(
-            tickangle=0,
-            gridcolor='#f0f0f0',
-            tickfont=dict(
-                size=14,
-                color='#143982',
-                family='Arial, sans-serif'
-            )
-        ),
-        yaxis=dict(
-            gridcolor='#f0f0f0',
-            showgrid=True,
-            tickfont=dict(
-            size=14,
-            color='#143982',
-            family='Arial, sans-serif'
-        ),
-        title=''
-    ),
-        height=500,
-        showlegend=False,
-        font=dict(size=12),
-    
-      annotations=[
-        dict(
-            x=xi,
-            y=-0.15,  # PosiÃ§Ã£o abaixo das barras
-            xref='x',
-            yref='paper',
-            text=f"<b>{xi}</b>",  # Texto em negrito
-            showarrow=False,
-            font=dict(
-                size=13,
-                color='#143982',
-                family='Arial, sans-serif'
-            ),
-            textangle=0
-        ) for xi in df['Projeto']
-    ]
-)
-    
+
     st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("Status dos Projetos")
     # Contagem do Status
     status_counts = df['Status'].value_counts()
 
-    # GrÃ¡fico de pizza dos status
+    # Gráfico de pizza dos status
     fig = go.Figure(
         go.Pie(
             labels=status_counts.index,
@@ -174,7 +324,7 @@ with col2:
     st.subheader("Categorias de Investimento")
     # Contagem das categorias
     df['Categoria_Investimento'] = df['Investimento (€)'].apply(
-    lambda x: 'Alto' if x > 120000 else 'MÃ©dio' if x > 80000 else 'Baixo'
+    lambda x: 'Alto' if x > 120000 else 'Médio' if x > 80000 else 'Baixo'
     )
 
     # Conta quantas vezes a categoria aparece
@@ -189,7 +339,7 @@ with col2:
             text=cat_counts.values,
             textposition='outside',
             marker_color='lightcoral',
-            name='FrequÃªncia'
+            name='Frequência'
         )
     )
 
@@ -204,8 +354,7 @@ st.header("🔗 Análise Bivariada - Correlações e Relacionamentos")
 # Análise de correlações e scatter plots
 col1, col2 = st.columns(2)
 
-df["Duracao_meses"] = ((df["Data_Fim"] - df["Data_Inicio"]).dt.days / 30.44).round(1)
-df['ROI_Progresso'] = df['Progresso (%)'] / (df['Investimento (€)'] / 1000)
+# Colunas já criadas na seção de preparação dos dados
 
 with col1:
     st.subheader("Investimento vs Progresso")
@@ -216,6 +365,7 @@ with col1:
                      text=df['Projeto'],
                      color=df['Projeto']
                      )
+    fig.update_traces(textposition='top center')
     st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("Duração vs Progresso")  
@@ -226,6 +376,7 @@ with col1:
                      text=df['Projeto'],
                      color=df['Projeto']
                      )
+    fig.update_traces(textposition='top center')
     st.plotly_chart(fig, use_container_width=True)
 
 with col2:
@@ -264,39 +415,18 @@ st.divider()
 st.header("⏰ Análise Temporal e Cronograma")
 
 st.subheader("Timeline dos Projetos - Gráfico de Gantt")
-# Gráfico de Gantt interativo
+create_grant(df)
 
 # Layout em colunas para análises temporais
 col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("Eficiência: Progresso por €1000")
-    # Gráfico de barras: ROI por projeto
+    create_ROI(df)
 
 with col2:
     st.subheader("Análise de Deadline")
-    # Scatter plot: Dias restantes vs Progresso
-
-st.divider()
-
-#=========== PERFORMANCE ANALYSIS SECTION ===========
-
-st.header("🏆 Análise de Performance e Eficiência")
-
-# Métricas de performance
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    st.subheader("Ranking de Eficiência")
-    # Tabela ranking ROI por projeto
-
-with col2:
-    st.subheader("Performance Departamental")
-    # Gráfico comparativo por departamento
-
-with col3:
-    st.subheader("Status de Deadlines")
-    # Indicadores de prazo (Em dia/Atrasado/Atenção)
+    create_deadline_analysis(df)
 
 st.divider()
 
@@ -308,28 +438,128 @@ st.header("📋 Estatísticas Detalhadas e Insights")
 tab1, tab2, tab3 = st.tabs(["📊 Estatísticas Descritivas", "🔍 Análise de Correlação", "🎯 Insights e Recomendações"])
 
 with tab1:
-    st.subheader("Estatísticas Descritivas Consolidadas")
-    # Tabela de estatísticas descritivas
+    st.subheader("📊 Estatísticas Descritivas Consolidadas")
     
-    st.subheader("Ranking de Performance")
-    # Tabela de ranking completo
+    # Estatísticas descritivas das variáveis numéricas
+    st.write("**Resumo Estatístico dos Dados:**")
+    stats_cols = ['Investimento (€)', 'Progresso (%)', 'Duracao_meses', 'ROI_Eficiencia']
+    
+    # Criar DataFrame com estatísticas
+    stats_summary = df[stats_cols].describe().round(2)
+    st.dataframe(stats_summary, use_container_width=True)
+    
+    st.subheader("🏆 Ranking de Performance")
+    
+    # Ranking baseado na eficiência (ROI_Eficiencia)
+    ranking_df = df[['Projeto', 'Departamento', 'Investimento (€)', 'Progresso (%)', 'ROI_Eficiencia', 'Status']].copy()
+    ranking_df = ranking_df.sort_values('ROI_Eficiencia', ascending=False)
+    ranking_df['Posição'] = range(1, len(ranking_df) + 1)
+    
+    # Reordenar colunas
+    ranking_df = ranking_df[['Posição', 'Projeto', 'Departamento', 'ROI_Eficiencia', 'Progresso (%)', 'Investimento (€)', 'Status']]
+    
+    st.dataframe(ranking_df, use_container_width=True)
 
 with tab2:
-    st.subheader("Matriz de Correlação Completa")
-    # Tabela e heatmap de correlações
+    st.subheader("📈 Matriz de Correlação Completa")
     
-    st.subheader("Análise de Variabilidade")
-    # Gráficos de dispersão e variabilidade
+    # Matriz de correlação
+    numeric_cols = ['Investimento (€)', 'Progresso (%)', 'Duracao_meses', 'ROI_Eficiencia']
+    correlation_matrix = df[numeric_cols].corr()
+    
+    # Heatmap de correlações
+    fig = px.imshow(
+        correlation_matrix,
+        text_auto='.3f',
+        title="Matriz de Correlação entre Variáveis",
+        color_continuous_scale='RdBu_r',
+        aspect="auto"
+    )
+    
+    st.plotly_chart(fig, use_container_width=True)
+    
+    # Tabela de correlações
+    st.write("**Coeficientes de Correlação:**")
+    st.dataframe(correlation_matrix.round(3), use_container_width=True)
+    
+    st.subheader("📊 Análise de Variabilidade")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        # Box plot do investimento por departamento
+        fig = px.box(df, x='Departamento', y='Investimento (€)', 
+                    title="Variabilidade do Investimento por Departamento")
+        st.plotly_chart(fig, use_container_width=True)
+    
+    with col2:
+        # Box plot do progresso por status
+        fig = px.box(df, x='Status', y='Progresso (%)', 
+                    title="Variabilidade do Progresso por Status")
+        st.plotly_chart(fig, use_container_width=True)
 
 with tab3:
-    st.subheader("Principais Achados")
-    # Lista de insights principais
+    st.subheader("🔍 Principais Achados")
     
-    st.subheader("Recomendações Estratégicas")
-    # Lista de recomendações baseadas na análise
+    # Análise automática dos dados
+    total_investimento_formatted = f"€{total_investimento:,.0f}"
+    melhor_projeto = ranking_df.iloc[0]['Projeto']
+    pior_projeto = ranking_df.iloc[-1]['Projeto']
+    correlacao_inv_prog = correlation_matrix.loc['Investimento (€)', 'Progresso (%)']
     
-    st.subheader("Indicadores de Gestão")
-    # KPIs e métricas de gestão
+    findings = [
+        f"💰 **Investimento Total**: {total_investimento_formatted} distribuídos em {total_projetos} projetos",
+        f"📊 **Progresso Médio**: {progresso_medio:.1f}% com {projetos_concluidos} projetos concluídos",
+        f"🏆 **Melhor Performance**: {melhor_projeto} (maior eficiência)",
+        f"⚠️ **Menor Performance**: {pior_projeto} (menor eficiência)",
+        f"🔗 **Correlação Investimento-Progresso**: {correlacao_inv_prog:.3f} ({'Positiva' if correlacao_inv_prog > 0 else 'Negativa'})",
+        f"⏱️ **Duração Média dos Projetos**: {df['Duracao_meses'].mean():.1f} meses"
+    ]
+    
+    for finding in findings:
+        st.markdown(f"• {finding}")
+    
+    st.subheader("💡 Recomendações Estratégicas")
+    
+    recommendations = []
+    
+    # Recomendações baseadas na análise
+    if progresso_medio < 75:
+        recommendations.append("🎯 **Acelerar Projetos**: Progresso médio abaixo da meta (75%). Revisar cronogramas.")
+    
+    if correlacao_inv_prog < 0.3:
+        recommendations.append("💰 **Otimizar Investimentos**: Baixa correlação entre investimento e progresso. Revisar alocação de recursos.")
+    
+    projetos_atrasados = len(df[df['Progresso (%)'] < 50])
+    if projetos_atrasados > 0:
+        recommendations.append(f"⚠️ **Atenção Especial**: {projetos_atrasados} projeto(s) com progresso crítico (<50%). Intervenção necessária.")
+    
+    # Análise por departamento
+    dept_performance = df.groupby('Departamento')['ROI_Eficiencia'].mean().sort_values(ascending=False)
+    melhor_dept = dept_performance.index[0]
+    recommendations.append(f"🏆 **Benchmark Departamental**: {melhor_dept} apresenta melhor eficiência. Compartilhar boas práticas.")
+    
+    if not recommendations:
+        recommendations.append("✅ **Performance Satisfatória**: Todos os indicadores estão dentro dos parâmetros aceitáveis.")
+    
+    for rec in recommendations:
+        st.markdown(f"• {rec}")
+    
+    st.subheader("📊 Indicadores de Gestão")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.metric("Taxa de Conclusão", f"{taxa_conclusao:.1f}%")
+        st.metric("Projetos Críticos", f"{len(df[df['Progresso (%)'] < 50])}")
+    
+    with col2:
+        st.metric("Eficiência Média", f"{roi_medio:.2f}")
+        st.metric("Desvio Padrão ROI", f"{df['ROI_Eficiencia'].std():.2f}")
+    
+    with col3:
+        st.metric("Investimento Médio", f"€{df['Investimento (€)'].mean():,.0f}")
+        st.metric("Duração Média", f"{df['Duracao_meses'].mean():.1f}m")
 
 #=========== FOOTER AND METADATA SECTION ===========
 
