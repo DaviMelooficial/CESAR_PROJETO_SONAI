@@ -35,7 +35,7 @@ def login_page():
     st.markdown("""
         <div style='text-align: center; padding: 50px;'>
             <h1>🔐 Sistema de Login</h1>
-            <h3>Dashboard de Análise - MC Sonae</h3>
+            <h3>Dashboard de Análise - FadoLab</h3>
         </div>
     """, unsafe_allow_html=True)
     
